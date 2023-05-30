@@ -3,11 +3,10 @@ selfDestructableSetIntervalWhichWaitsForSomething= setInterval(function(){
     console.log(`
            *                     +     *                                                                      
               **       *                 *  *                                                             *   
-       *   * *          *                  Puedes actualizar las propiedades de Vv11 desde la consola,        
-                   *                                               *  usa ese código para refrescar la escena 
+       *   * *          *                  Puedes actualizar las propiedades de Vv11 desde la consola      
+                   *                                en el Raw      *  
                       +       *    *       *                           *                                      
          *       +                  +      *                                                                  
-            renderer.render( scene, camera ); 
     `); 
 
     const loader = new SVGLoader(); 
@@ -28,7 +27,7 @@ gOfObj= []
     group = new THREE.Group(); 
 
 const objLoader = new OBJLoader()
-/*objLoader.load(
+objLoader.load(
 '/LamaMadora/raw/p/i8eE2s38vBNE5/resources/caballo.obj',
 (object) => {
 gOfObj[gOfObj.length]= object
@@ -37,10 +36,10 @@ gOfObj[gOfObj.length - 1].scale.y= 0.0237156784
 gOfObj[gOfObj.length - 1].scale.z= 0.0237156784
 gOfObj[gOfObj.length - 1].rotation.x= (Math.PI / 180) * 180
 gOfObj[gOfObj.length - 1].rotation.y= (Math.PI / 180) * 180
-gOfObj[gOfObj.length - 1].rotation.z= (Math.PI / 180) * 720
+gOfObj[gOfObj.length - 1].rotation.z= (Math.PI / 180) * 540
 
 gOfObj[gOfObj.length - 1].position.x= -2.0342499999999992
-gOfObj[gOfObj.length - 1].position.y= 2.7000449999999967
+gOfObj[gOfObj.length - 1].position.y= 3.39
 gOfObj[gOfObj.length - 1].position.z=1.43485018
 
 scene.add(gOfObj[gOfObj.length - 1])
@@ -52,7 +51,7 @@ console.log((xhr.loaded / xhr.total) * 100 + '% loaded')
 console.log(error)
 }
 )
-*/
+
 
     loadSVG= function( svgLink, eXDepth, mAterial ){     
         loader.load(
@@ -640,7 +639,7 @@ console.log(error)
     
     ambiance = new THREE.PointLight( 0x000000, 5,  2.8 ); 
     ambiance.color= {r: 0.37, g: 0.5788, b: 0.363}; 
-    ambiance.intensity= 0.28; 
+    ambiance.intensity= 2.57; 
     ambiance.position.x= 0; 
     ambiance.position.y= -1; 
     ambiance.position.z= 0.3; 
@@ -1098,6 +1097,9 @@ console.log(error)
     
     window.display= {}
     
+    window.onblur= function(e){
+        keysDown= { a: false , d: false , w: false , s: false , q: false , e: false, f: false , izquierda: false , derecha: false , arriba: false , abajo: false, Shift: false }
+    }
     display.log= function(t){
         document.querySelector("display log").innerHTML= `${t}`.replaceAll(`i̇́`, `<i>`).replaceAll(`ᶖ`, `</i>`).indexOf(`</i>`) < `${t}`.replaceAll(`i̇́`, `<i>`).replaceAll(`ᶖ`, `</i>`).indexOf(`<i>`)? `<i>${t}`.replaceAll(`i̇́`, `<i>`).replaceAll(`ᶖ`, `</i>`): `${t}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`.replaceAll(`i̇́`, `<i>`).replaceAll(`ᶖ`, `</i>`)
     }
@@ -1760,13 +1762,16 @@ console.log(error)
         }
         //
         
-        
-        renderer.render( scene, camera ); 
     
         /*console.log( curveObject == oldCurve ); */ 
-    }, 1); 
+    }, 1000/60); 
     
-    
+    var id;
+    function animate() {
+        id = requestAnimationFrame( animate );
+        renderer.render( scene, camera );
+    }
+    animate()
     
     
     
